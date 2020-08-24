@@ -1,0 +1,380 @@
+.containerAG {
+    position: relative;
+    height: auto;
+    width: 100;
+    padding-top: 180px;
+    margin-bottom: 100px;
+}
+
+.left {
+    left: -50px;
+}
+
+.right {
+    right: -50px;
+}
+
+.imageBrightness {
+    filter: brightness(0.45);
+    -moz-filter: brightness(0.45);
+}
+
+.card {
+    cursor: pointer !important;
+}
+
+div.dimmer { background-color: rgba(0,0,0,0.97) !important }
+
+.slick-dots li button:before {
+    top: -20px !important;
+    color: orange !important;
+}
+
+mark {
+    font-weight: 700;
+    font-family: monospace;
+    background-color: transparent;
+    color: orange;
+}
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar
+{
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    background-color: rgba(255, 137, 0);
+    border-radius: 20px;
+    background-image: -webkit-linear-gradient(90deg, rgba(0, 0, 0, .2) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, .2) 50%, rgba(0, 0, 0, .2) 75%, transparent 75%, transparent)
+},
+
+.fadeOut{
+    opacity:0;
+    background-color: rgba(255, 255, 255, 0);
+    transition: all 1s;
+}
+
+.fadeIn{
+    opacity:1;
+    background-color: rgba(255, 255, 255, 1);
+    transition: all 2s;
+}
+
+#socialIcons:hover {
+    color: orange;
+    cursor: pointer;
+    transform: scale(1.3);
+    transition: transform ease-in-out 0.1s;
+}
+
+#codeIcons:hover {
+    color: orange;
+    cursor: pointer;
+    transform: scale(1.3);
+    transition: transform ease-in-out 0.1s;
+}
+
+#techIconCaption:hover {
+    color: orange;
+    opacity: 1;
+    transition: all ease-out 1s;
+}
+
+a:link {
+    text-decoration:none;
+    color: inherit;
+}
+
+a:active {
+    color: inherit;
+}
+
+a:visited {
+    color: inherit;
+}
+
+a {
+    color: inherit;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+#darkMode:hover {
+    transform: scale(1.2);
+    transition: all ease-out 0.3s;
+}
+
+#scrollHover:hover {
+    color: orange;
+}
+
+.bar {
+    display: block;
+    width: 100%;
+    height: 52px;
+    border-left: 5px solid orange;
+    background-color: rgba(0, 0, 0, 0.08);
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    z-index: 10;
+    transition: transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.1s;
+}
+
+.projectSection {
+    display: table-cell;
+    vertical-align: middle;
+    height: calc(100vh - 150px);
+}
+
+#usedTech {
+    position: relative;
+    height: auto;
+    font-family: monospace;
+    font-size: 0.7em;
+    color: rgba(0,0,0,0.36);
+}
+
+body {
+    max-width: 100%;
+    background-image: url('');
+    background-position: center 0;
+}
+
+#home {
+    #background-image: linear-gradient(135deg, rgba(33,218,235,1) 0%, rgba(0,242,206,1) 100%);
+
+}
+
+.burger {
+    display: none;
+}
+
+.menu-item {
+    width: 100%;
+}
+
+@media only screen and (max-width: 1024px) {
+    .bgCaptionContainer {
+        position: absolute !important;
+        top: 0px !important;
+        bottom: 45% !important;
+        height: auto !important;
+        width: 100% !important;
+        padding-left: 0 !important;
+        text-align: center !important;
+        align-items: top !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .bgCaptionHeading {
+        font-size: 4.5em !important;
+        
+    }
+
+    .bgCaptionPara {
+        font-size: 1.1em !important;
+        width: 350px !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .actionButtonMobile {
+        transform: scale(0.7) !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .bgMobile {
+        padding-left: 24px !important;
+        padding-top: 0% !important;
+        background-size: auto 60% !important;
+        background-position: center bottom !important;
+    }
+
+    .nav {
+        display: none !important;
+    }
+
+    .burger {
+        display: block !important;
+    }
+
+}
+
+
+@media only screen and (max-width: 885px) {
+    .socialMediaMobile {
+        z-index: -99 !important;
+        display: none !important;
+    }
+
+    .watermarkMobile {
+        display: none !important;
+    }
+
+    .bar {
+        display: block;
+        width: 48%;
+        height: 52px;
+        border-left: 0px;
+        padding: 0px !important;
+        border-bottom: 5px solid orange;
+        background-color: rgba(0, 0, 0, 0.08);
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 10;
+        transition: transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.1s;
+    }
+
+    .scrollDownMobile {
+        display: none !important;
+    }
+
+    .mobileItemContainer {
+        padding: 0px !important;
+    }
+
+    .mobileWorkDesc {
+        border-left: 0px !important;
+        width: 100% !important;
+    }
+
+    .mobileJobItem {
+        padding: 0px !important;
+        text-align: center !important;
+    }
+
+}
+
+@media only screen and (max-width: 767px) {
+    .sectionHeading {
+        padding-left: 15px !important; 
+    } 
+}
+
+
+@media only screen and (max-width: 599px) {
+    .scrollBackUp {
+        display: none !important;
+    }
+
+    .slick-dots li button:before {
+        top: -40px !important;
+    }
+
+    .featuredMobile {
+    }
+    
+    .featuredImageMobile {
+        width: 100% !important;
+        position: absolute !important;
+        display: none !important;
+    }
+
+    .mobileProjectCard {
+        background-color: rgba(36, 36, 36, 0.2) !important;
+    }
+
+    .mobileCardContainer {
+        color: rgba(0, 0, 0, 0.87) !important;
+        background-color: rgba(255, 165, 0, 0.9) !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        height: 350px !important;
+    }
+
+}
+
+@media only screen and (max-width: 886px) {
+    .modalContentDesc {
+        padding-right: 0px !important;
+    }
+
+    .additionalInfoMobile {
+        border-top: 1px solid grey;
+        border-left: 0 !important; 
+        padding-left: 0 !important;
+    }
+
+    .sliderImagesMobile {
+        width: 100% !important;
+        height: auto !important;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .mobileFileExplorer {
+        position: absolute !important;
+        left: 0;
+        top: 445px;
+        width: 100% !important;
+        height: 250px !important;
+        overflow-y: scroll !important;
+    }
+
+    .codeBlockMobile {
+        bottom: bottom !important; 
+        min-height: 440px !important;
+        height: 440px !important;
+        width: 100% !important;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .folderIcon {
+        transform: scale(0.8) !important;
+    }
+
+    .folderTitle {
+        font-size: 1.1em !important;
+    }
+
+    .folderDesc {
+        top: 40% !important;
+        font-size: 0.9em !important;
+
+    }
+
+    .shareIcon {
+        right: 6% !important;
+        bottom: 7% !important;
+        transform: scale(0.8) !important;
+    }
+
+    .bgCaptionContainer {
+        top: 85px !important;
+    }
+
+    .bgCaptionHeading {
+        font-size: 4.0em !important;
+
+    }
+
+    .bgCaptionPara {
+        font-size: 0.95em !important;
+        width: 250px !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .actionButtonMobile {
+        transform: scale(0.7) !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}

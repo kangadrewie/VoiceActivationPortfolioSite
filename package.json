@@ -1,0 +1,58 @@
+{
+  "name": "site_1",
+  "version": "0.1.0",
+  "private": true,
+  "engine": {
+    "node": "v12.14.1",
+    "npm": "6.13.4"
+  },
+  "dependencies": {
+    "@tenon-io/tenon-codeblock": "^1.0.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "js-base64": "^3.2.3",
+    "react": "^16.13.1",
+    "react-animate-on-scroll": "^2.1.5",
+    "react-animation": "^1.2.2",
+    "react-audio-recorder": "^2.2.0",
+    "react-burger-menu": "^2.7.1",
+    "react-code-blocks": "0.0.8",
+    "react-dom": "^16.13.1",
+    "react-fade-in": "^1.1.0",
+    "react-mic": "^12.4.6",
+    "react-reveal": "^1.2.2",
+    "react-scripts": "3.4.1",
+    "react-scroll-button": "^1.1.2",
+    "react-slick": "^0.27.1",
+    "react-spring": "^8.0.27",
+    "react-syntax-highlighter": "^12.2.1",
+    "react-visibility-sensor": "^5.1.1",
+    "rebass": "^3.0.0-12",
+    "semantic-ui-react": "^0.88.2",
+    "serve": "^11.3.2",
+    "slick-carousel": "^1.8.1"
+  },
+  "scripts": {
+    "dev": "react-scripts start",
+    "start": "serve -s build",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
