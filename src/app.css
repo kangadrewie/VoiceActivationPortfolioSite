@@ -1,11 +1,23 @@
 .blink {
-  animation: blinker 1s linear infinite;
+  animation: blinker 1.5s linear infinite;
 }
 
 @keyframes blinker {
   50% {
-    opacity: 0;
+    opacity: 0.2;
   }
+}
+
+.hide {
+    visibility: hidden;
+}
+
+.cursor {
+    width: 10px !important;
+    padding: 0px !important;
+    margin: 0px !important;
+    font-family: monospace !important;
+    font-size: 1.5em !important;
 }
 
 .Typewriter__wrapper, .Typewriter__cursor {
