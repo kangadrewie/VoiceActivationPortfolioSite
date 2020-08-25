@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import VoiceButton from './VoiceButton.js';
+import SearchBar from './SearchBar.js';
 import TechIcons from './TechIcons.js';
 import ScrollComponenet from './ScrollButton.js';
 import ScrollDown from './ScrollDownLanding.js';
@@ -25,7 +25,7 @@ class LandingDialog extends Component {
                     </FadeIn>
 
                     <FadeIn delay="2000" transitionDuration="1400">
-                        <VoiceButton></VoiceButton>
+                        <SearchBar></SearchBar>
                     </FadeIn>
 
                     </div>

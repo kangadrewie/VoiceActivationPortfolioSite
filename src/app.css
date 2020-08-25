@@ -1,3 +1,18 @@
+.blink {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.Typewriter__wrapper, .Typewriter__cursor {
+    font-family: monospace !important;
+    font-size: 1.5em !important;
+}
+
 .containerAG {
     position: relative;
     height: auto;
@@ -17,6 +32,14 @@
 .imageBrightness {
     filter: brightness(0.45);
     -moz-filter: brightness(0.45);
+}
+
+.landingVisualiser {
+    padding-top: 40px;
+    position: relative;
+    display: inline;
+    width: 100px;
+    height: 75px;
 }
 
 .card {

@@ -12,6 +12,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "js-base64": "^3.2.3",
+    "node-wit": "^6.0.0",
     "react": "^16.13.1",
     "react-animate-on-scroll": "^2.1.5",
     "react-animation": "^1.2.2",
@@ -31,7 +32,8 @@
     "rebass": "^3.0.0-12",
     "semantic-ui-react": "^0.88.2",
     "serve": "^11.3.2",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "typewriter-effect": "^2.13.1"
   },
   "scripts": {
     "dev": "react-scripts start",

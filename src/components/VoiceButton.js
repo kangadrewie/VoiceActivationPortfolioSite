@@ -9,6 +9,22 @@ class VoiceButton extends Component {
         }
     }
 
+    postAPI = (payload) => {
+        const headers = {
+            method: 'POST',
+            headers: {
+                "Accept": "application/json",
+                "Authorization": "Bearer LRDKVN42MTLEPBNTFSLNKPX6C4ZB6W2G",
+            },
+        }
+
+        fetch('https://api.wit.ai/speech?v=20200513', payload,  headers)
+            .then(response => {
+                console.log(response.json())
+            })
+            
+    }
+
     startRecording = () => {
         this.setState({ record: true });
     }
@@ -23,24 +39,34 @@ class VoiceButton extends Component {
 
     onStop(recordedBlob) {
         console.log('recordedBlob is: ', recordedBlob);
+        console.log(recordedBlob.blobURL)
     }
 
     render() {
         return(
-            <React.Fragment>
-                <ReactMic
-                    record={this.state.record}
-                    className="sound-wave"
-                    onStop={this.onStop}
-                    onData={this.onData}
-                    strokeColor="#000000"
-                    backgroundColor="#FF4081" />
-                <button id="actionButton" style={btnAction} className="actionButtonMobile" onClick={this.startRecording}>
-                    <i style={icon} className="microphone icon"></i>
-                    Ask Me Anything
-                </button>
-                <button onClick={this.stopRecording}></button>
-            </React.Fragment>
+            <table>
+                <tr>
+                    <td>
+                        <ReactMic
+                            record={this.state.record}
+                            className="landingVisualiser"
+                            mineType="audio/wav"
+                            autoGainControl={true}
+                            onStop={this.onStop}
+                            onData={this.onData}
+                            strokeColor="orange"
+                            backgroundColor="white" 
+                        />
+                    </td>
+                    <td>
+                        <button id="actionButton" style={btnAction} className="actionButtonMobile" onClick={this.startRecording}>
+                            <i style={icon} className="microphone icon"></i>
+                            Ask Me Anything
+                        </button>
+                        <button onClick={this.stopRecording}>STOP</button>
+                    </td>
+                </tr>
+           </table>
         )
     }
 }
