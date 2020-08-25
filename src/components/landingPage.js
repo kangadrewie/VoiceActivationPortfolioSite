@@ -31,6 +31,9 @@ class LandingDialog extends Component {
             unknownColl: ['Sorry. Say again? 😕', 'I Don\'t Understand 😟'],
             favouriteLanguageColl: ['Python. 🐍'],
             favouriteFrameworkColl: ['React. 🚀'],
+            favouriteMovieColl: ['Green Book. Watch it.'],
+            favouriteMusicColl: ['All Music is 🔥'],
+            favouriteBookColl: ['1984. 🕵'],
             heading: "I\'m Andrew",
             caption: "And I’m a passionate and aspiring Software Engineer based in Dublin. I am open to explore any exciting opportunities or challenges so don’t be shy!"
         }
