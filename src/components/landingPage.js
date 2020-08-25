@@ -14,20 +14,38 @@ class LandingDialog extends Component {
         this.state = {
 
             greetingColl: ['Hi there. 👋', 'Hey! 👋', 'How can I help? 😁', 'Hello. 👌', 'Welcome. 🤙', 'What can I do for you? 😀', 'Nice to meet you.🤝'],
+            emotionalGreetingColl: ['I\'m Great. Thanks 😀', 'Very Well, You? 🙌', 'All Good. You? 😊'],
             greetingResponseColl : ['Nm. You? 🤔', 'Just Coding. You? 👨‍💻', 'Chillin. You? 🤔'],
+            apologyColl: ['Forgiven. 🤛', 'No Problem 🤝', 'No Need to Apologise. 🤚'],
+            gratitudeColl: ['You\'re Welcome. ☺️', 'No Problem. 😀', 'No. Thank you. 👏', 'Any Time. 🤙'],
             ageColl: ['I\'m 25. 🎈'],
             birthdayColl: ['January, 1995. 🎉'],
-            abusiveColl: ['No need.', 'Watch Your Mouth.', 'Get Out.', 'Please Leave', 'Well...'],
-            nameColl: ['Andrew. But Call Me Andy. 🤛'],
-            firstNameColl: ['Andrew'],
-            fullNameColl: ['Andrew Gorman.'],
+            abusiveColl: ['No need. 😮', 'Watch Your Mouth. 👊', 'Get Out. 😠', 'Well...😳', '😡😡😡😡'],
+            nameColl: ['Andrew.\nBut Call Me Andy. 🤛'],
+            firstNameColl: ['Andrew 👨‍🚀'],
+            fullNameColl: ['Andrew Gorman.🙋‍♂️'],
             middleNameColl: ['John.'],
-            lastNameColl: ['Gorman.'],
-            locationColl: ['Dublin.', 'Baile Átha Cliath'],
+            lastNameColl: ['Gorman.🙅‍♂️'],
+            locationColl: ['Dublin. 🙅🏻‍♂️'],
             contactColl: ["👈 LinkedIn & Email."],
             unknownColl: ['Sorry. Say again? 😕', 'I Don\'t Understand 😟'],
+            favouriteLanguageColl: ['Python. 🐍'],
+            favouriteFrameworkColl: ['React. 🚀'],
             heading: "I\'m Andrew",
             caption: "And I’m a passionate and aspiring Software Engineer based in Dublin. I am open to explore any exciting opportunities or challenges so don’t be shy!"
+        }
+    }
+
+    email = (intent) => {
+        if (intent.name == 'email') {
+            this.setState({heading: 'Click Here 👈'})
+            return(
+                <a href="tomail:andrewgorman101@gmail.com">
+                    <h1 style={header} className="bgCaptionHeading">{this.state.heading}</h1>
+                </a>
+            )
+        } else {
+            return null;
         }
     }
     
@@ -41,8 +59,8 @@ class LandingDialog extends Component {
         this.setState({heading: selection, caption: ''})
     }
 
-
     handleIntent = (intent) => {
+
         this.select(intent.name)
     }
 

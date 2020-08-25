@@ -8,7 +8,6 @@ class SearchBar extends Component {
         this.terminal = React.createRef();
 
         this.state = {
-            cursor: '_',
             nextLine: false,
             startType: false,
             rows: [],
@@ -32,14 +31,12 @@ class SearchBar extends Component {
                 return data.intents[0]
             })
             .then((intent) => {
-                console.log(intent.name)
-                if (intent.name.length > 0) {
+                try {
                     this.props.intent(intent);
-                } else {
+                } catch(err) {
                     this.props.intent({name: 'unknown'})
                 }
-                this.setState({"intent": intent.name});
-            })
+            });
             
     }
 
@@ -51,6 +48,7 @@ class SearchBar extends Component {
         if (this.state.rows.length > 3) {
             this.terminal.current.deleteRow(0)
         }
+        console.log(this.terminal.current.id)
         this.setState({ rows: [...this.state.rows, '0'] })
     } 
 
@@ -58,7 +56,7 @@ class SearchBar extends Component {
         return(
             <div style={container} intent={this.state.intent}>
                 <table ref={this.terminal}>
-                    <tr>
+                    <tr style={botRows}>
                         <td>
                             <i style={terminal} className="big angle right icon"></i>
                         </td>
@@ -81,9 +79,9 @@ class SearchBar extends Component {
                         </td>
                     </tr>
                     {
-                        this.state.rows.map((row) => {
+                        this.state.rows.map((row, index) => {
                             return (
-                                <tr>
+                                <tr id={index} style={botRows}>
                                     <td>
                                         <i style={terminal} className="big angle right icon"></i>
                                     </td>
@@ -109,8 +107,12 @@ const terminal = {
     color: 'orange'
 }
 
+const botRows = {
+    width: '502px !important',
+    minWidth: '502px !important'
+}
+
 const container = {
-    minWidth: '550px !important',
     marginTop: '40px',
     transform: 'translateX(-12px)'
 }
