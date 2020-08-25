@@ -13,17 +13,19 @@ class LandingDialog extends Component {
 
         this.state = {
 
-            greetingColl: ['Hi there.', 'Hey!', 'How can I help?', 'Hello.', 'Welcome.', 'What can I do for you?', 'Nice to meet you.'],
-            greetingResponseColl : ['Nm. You?', 'Just Coding. You?', 'Chillin. You?'],
-            ageColl: ['I\'m 25.'],
-            birthdayColl: ['January, 1995.'],
+            greetingColl: ['Hi there. 👋', 'Hey! 👋', 'How can I help? 😁', 'Hello. 👌', 'Welcome. 🤙', 'What can I do for you? 😀', 'Nice to meet you.🤝'],
+            greetingResponseColl : ['Nm. You? 🤔', 'Just Coding. You? 👨‍💻', 'Chillin. You? 🤔'],
+            ageColl: ['I\'m 25. 🎈'],
+            birthdayColl: ['January, 1995. 🎉'],
             abusiveColl: ['No need.', 'Watch Your Mouth.', 'Get Out.', 'Please Leave', 'Well...'],
-            nameColl: ['Andrew. But Call Me Andy.'],
+            nameColl: ['Andrew. But Call Me Andy. 🤛'],
             firstNameColl: ['Andrew'],
             fullNameColl: ['Andrew Gorman.'],
             middleNameColl: ['John.'],
             lastNameColl: ['Gorman.'],
             locationColl: ['Dublin.', 'Baile Átha Cliath'],
+            contactColl: ["👈 LinkedIn & Email."],
+            unknownColl: ['Sorry. Say again? 😕', 'I Don\'t Understand 😟'],
             heading: "I\'m Andrew",
             caption: "And I’m a passionate and aspiring Software Engineer based in Dublin. I am open to explore any exciting opportunities or challenges so don’t be shy!"
         }
@@ -36,7 +38,7 @@ class LandingDialog extends Component {
         let randomNum = Math.floor(Math.random() * Math.floor(size))
         let selection = this.state[collection][randomNum]
         console.log(selection)
-        this.setState({heading: selection})
+        this.setState({heading: selection, caption: ''})
     }
 
 

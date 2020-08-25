@@ -33,8 +33,12 @@ class SearchBar extends Component {
             })
             .then((intent) => {
                 console.log(intent.name)
+                if (intent.name.length > 0) {
+                    this.props.intent(intent);
+                } else {
+                    this.props.intent({name: 'unknown'})
+                }
                 this.setState({"intent": intent.name});
-                this.props.intent(intent);
             })
             
     }
