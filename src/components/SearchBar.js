@@ -11,12 +11,12 @@ class SearchBar extends Component {
             cursor: '_',
             nextLine: false,
             startType: false,
-            rows: []
+            rows: [],
+            intent: 'null'
         }
     }
 
     postAPI = (payload) => {
-        console.log(process.env.REACT_APP_WIT_API_KEY)
         const headers = {
             method: 'GET',
             headers: {
@@ -26,28 +26,33 @@ class SearchBar extends Component {
 
         fetch(`https://api.wit.ai/message?v=20200513&q=${payload}`,  headers)
             .then(response => {
-                console.log(response.json())
+                return response.json()
+            })
+            .then((data) => {
+                return data.intents[0]
+            })
+            .then((intent) => {
+                console.log(intent.name)
+                this.setState({"intent": intent.name});
+                this.props.intent(intent);
             })
             
     }
 
     handleSubmit= (e) => {
         e.preventDefault() 
-        console.log(e.target.parentNode.parentNode)
         let payload = encodeURIComponent(e.target[0].value);
         this.postAPI(payload)
         
-        this.terminal.current.deleteRow(0)
-
-        console.log(e.currentTarget.onfocus)
-
-
+        if (this.state.rows.length > 3) {
+            this.terminal.current.deleteRow(0)
+        }
         this.setState({ rows: [...this.state.rows, '0'] })
     } 
 
     render() {
         return(
-            <div style={container}>
+            <div style={container} intent={this.state.intent}>
                 <table ref={this.terminal}>
                     <tr>
                         <td>
@@ -61,7 +66,6 @@ class SearchBar extends Component {
                                 onInit={(typewriter) => {
                                     typewriter.typeString('Ask Me Anything, or simply say Hi!')
                                     .callFunction(() => {
-                                        console.log('String typed out!');
                                         this.setState({ rows: [...this.state.rows, '0'] })
                                     })
                                     .start();
@@ -74,7 +78,6 @@ class SearchBar extends Component {
                     </tr>
                     {
                         this.state.rows.map((row) => {
-                            console.log('HELLO')
                             return (
                                 <tr>
                                     <td>
@@ -103,6 +106,7 @@ const terminal = {
 }
 
 const container = {
+    minWidth: '550px !important',
     marginTop: '40px',
     transform: 'translateX(-12px)'
 }
@@ -114,7 +118,7 @@ const searchBar = {
 	width: '100%',
 	borderRight: 'none',
 	marginRight: '5px',
-	padding: '5px',
+	padding: '0px',
 	height: '30px',
 	border: '0px solid rgba(0, 0, 0, 0.27)',
 	backgroundColor: 'white',
