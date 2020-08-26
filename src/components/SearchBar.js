@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import Typewriter from 'typewriter-effect';
+import ReactTypingEffect from 'react-typing-effect';
+
+
+let increment = 0;
+let len = 0;
 
 class SearchBar extends Component {
     constructor(props) {
@@ -11,7 +16,10 @@ class SearchBar extends Component {
             nextLine: false,
             startType: false,
             rows: [],
-            intent: 'null'
+            intent: 'null',
+            firstName: 'andrew',
+            searchWidth: '20px',
+            type: ''
         }
     }
 
@@ -45,66 +53,119 @@ class SearchBar extends Component {
         let payload = encodeURIComponent(e.target[0].value);
         this.postAPI(payload)
         
-        if (this.state.rows.length > 3) {
-            this.terminal.current.deleteRow(0)
-        }
         console.log(this.terminal.current.id)
         this.setState({ rows: [...this.state.rows, '0'] })
+        this.setState({searchWidth: '20px'})
+        let increment = 20;
     } 
+
+    updateType = (event) => {
+        console.log(event.target.value)
+        this.setState({type: event.target.value}); 
+    }
 
     render() {
         return(
-            <div style={container} intent={this.state.intent}>
-                <table ref={this.terminal}>
-                    <tr style={botRows}>
-                        <td>
-                            <i style={terminal} className="big angle right icon"></i>
-                        </td>
-                        <td>
-                            <Typewriter
-                                options={{
-                                    cursor: '',
-                                }}
-                                onInit={(typewriter) => {
-                                    typewriter.typeString('Ask Me Anything, or simply say Hi!')
-                                    .callFunction(() => {
-                                        this.setState({ rows: [...this.state.rows, '0'] })
-                                    })
-                                    .start();
-                                }}
-                            />
-                        </td>
-                        <td>
-                            <h1 className={this.state.nextLine ? "hide": "blink cursor"}>_</h1>
-                        </td>
-                    </tr>
-                    {
-                        this.state.rows.map((row, index) => {
-                            return (
-                                <tr id={index} style={botRows}>
-                                    <td>
-                                        <i style={terminal} className="big angle right icon"></i>
-                                    </td>
-                                    <td>
-                                        <form onSubmit={this.handleSubmit} method="post">
-                                            <input style={searchBar} type="text" required="text" autofocus="autofocus" onfocus="this.select()"></input>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <i className="window minimize outline icon blink"></i>
-                                    </td>
-                                </tr>
-                            )
-                        })
-                    }
-                </table>
+            <div className="ui items terminal" style={terminal} intent={this.state.intent} ref={this.terminal}>
+                <div className="item">
+                    <div style={terminalLeft}>
+                        <i className="big angle right icon"></i>
+                    </div>
+                    <div style={terminalMiddle}>
+                        <Typewriter
+                          options={{
+                              cursor: '_',
+                          }}
+                          onInit={(typewriter) => {
+                            typewriter.typeString('Ask Me Anything, or simply say Hi!')
+                              .callFunction(() => {
+                                this.setState({ rows: [...this.state.rows, '0'] })
+                              })
+                              .pauseFor(2500)
+                              .deleteAll()
+                            typewriter.typeString('favourite programming language?')
+                              .pauseFor(1500)
+                              .deleteAll()
+                            typewriter.typeString('how do I contact you?')
+                              .pauseFor(1500)
+                              .deleteAll()
+                              .callFunction(() => {
+                                console.log('All strings were deleted');
+                              })
+                            typewriter.typeString('Ask Me Anything, or simple say Hi!')
+                              .start();
+                          }}
+                        />
+                    </div>
+                </div>
+                {
+                    this.state.rows.map((row, index) => {
+                        return(
+                            <div className="item">
+                                <div style={terminalLeft}>
+                                    <i className="big angle right icon"></i>
+                                </div>
+                                <div style={terminalMiddle}>
+                                    <form onSubmit={this.handleSubmit} method="post">
+                                        <input type="text" onChange={this.updateType} autofocus="autofocus" onfocus="this.select()"/>
+                                            <ReactTypingEffect
+                                                style={typewriterStyle}
+                                                staticText={this.state.type}
+                                                speed={250}
+                                                typingDelay={250}
+                                                cursor="_"
+                                            />
+                                    </form>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
             </div>
         )
     }
 };
 
 const terminal = {
-    color: 'orange'
+    transform: 'translateX(-10px)',
+    maxWidth: '500px',
+}
+
+const typewriterStyle = {
+    fontFamily: 'monospace',
+    fontSize: '1.5em',
+
+}
+
+const inputBox = {
+    width: '20px',
+    fontFamily: 'monospace',
+    fontSize: '1.5em',
+    whiteSpace: 'no-wrap'
+}
+
+const terminalRow = {
+    textAlign: 'left',
+    width: '100%'
+}
+
+const terminalLeft = {
+    color: 'orange',
+    float: 'left',
+    textAlign: 'left',
+    width: '25px',
+    marginRight: '10px'
+}
+
+const terminalMiddle = {
+    float: 'left',
+    paddingTop: '3px',
+    width: 'auto'
+}
+
+const terminalRight = {
+    float: 'left',
+    width: '25px'
 }
 
 const botRows = {
@@ -121,11 +182,11 @@ const tableStyle = {
 }
 
 const searchBar = {
-	width: '100%',
+	width: '500px',
 	borderRight: 'none',
 	marginRight: '5px',
 	padding: '0px',
-	height: '30px',
+	height: '100%',
 	border: '0px solid rgba(0, 0, 0, 0.27)',
 	backgroundColor: 'white',
 	color: 'white',

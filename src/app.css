@@ -12,6 +12,27 @@
     visibility: hidden;
 }
 
+.terminal {
+    margin-top: 40px !important;
+    padding-top: 40px !important;
+}
+
+.searchBar {
+	width: 100%;
+	padding: 0px;
+	height: 30px;
+	border: 1px solid rgba(0, 0, 0, 0.27);
+	background-color: white;
+	color: white;
+	outline: none;
+	color: rgba(0, 0, 0, 0.87);
+	border-radius: 5px 5px 5px 5px;
+    -moz-transition: all 0.3s;
+	transition: all 0.3s;
+    font-family: monospace;
+    font-size: 20px;
+}
+
 .cursor {
     width: 10px !important;
     padding: 0px !important;
