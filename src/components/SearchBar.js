@@ -11,6 +11,7 @@ class SearchBar extends Component {
         super(props);
 
         this.terminal = React.createRef();
+        this.inputText = React.createRef();
 
         this.state = {
             nextLine: false,
@@ -19,10 +20,15 @@ class SearchBar extends Component {
             intent: 'null',
             firstName: 'andrew',
             searchWidth: '20px',
+            activeID: 'row0',
+            terminalHeading: true,
             type: {
                 row0: ''
             }
         }
+    }
+
+    componentDidMount() {
     }
 
     postAPI = (payload) => {
@@ -54,71 +60,74 @@ class SearchBar extends Component {
         e.preventDefault() 
         let payload = encodeURIComponent(e.target[0].value);
         this.postAPI(payload)
-        
-        console.log(this.terminal.current.id)
         this.setState({ rows: [...this.state.rows, '0'] })
-        this.setState({searchWidth: '20px'})
-        let increment = 20;
+
+        if (this.state.rows.length > 3) {
+            this.setState({terminalHeading: false})
+        }
     } 
 
     updateType = (event) => {
         let row = event.currentTarget.id
         this.setState({ type: { ...this.state.type, [event.currentTarget.id]: event.target.value} });
-        console.log(this.state.type)
-        console.log(event.target.value)
+        this.setState({activeID: event.currentTarget.id})
+        console.log(this.state.activeID)
     }
 
     render() {
         return(
-            <div className="ui items terminal" style={terminal} intent={this.state.intent} ref={this.terminal}>
-                <div className="item">
-                    <div style={terminalLeft}>
-                        <i className="big angle right icon"></i>
-                    </div>
-                    <div style={terminalMiddle}>
-                        <Typewriter
-                          options={{
-                              cursor: '_',
-                          }}
-                          onInit={(typewriter) => {
-                            typewriter.typeString('Ask Me Anything, or simply say Hi!')
-                              .callFunction(() => {
-                                this.setState({ rows: [...this.state.rows, '0'] })
-                              })
-                              .pauseFor(2500)
-                              .deleteAll()
-                            typewriter.typeString('favourite programming language?')
-                              .pauseFor(1500)
-                              .deleteAll()
-                            typewriter.typeString('how do I contact you?')
-                              .pauseFor(1500)
-                              .deleteAll()
-                              .callFunction(() => {
-                                console.log('All strings were deleted');
-                              })
-                            typewriter.typeString('Ask Me Anything, or simple say Hi!')
-                              .start();
-                          }}
-                        />
+            <div className="terminal" style={terminal} intent={this.state.intent} ref={this.terminal}>
+                <div className={this.state.terminalHeading ? "ui items" : "ui items hide"}>
+                    <div className="item">
+                        <div style={terminalLeft}>
+                            <i className="big angle right icon"></i>
+                        </div>
+                        <div style={terminalMiddle}>
+                            <Typewriter
+                              options={{
+                                  cursor: '_',
+                              }}
+                              onInit={(typewriter) => {
+                                typewriter.typeString('Ask Me Anything, or simply say Hi!')
+                                  .callFunction(() => {
+                                    this.setState({ rows: [...this.state.rows, '0'] })
+                                  })
+                                  .pauseFor(2500)
+                                  .deleteAll()
+                                typewriter.typeString('favourite programming language?')
+                                  .pauseFor(1500)
+                                  .deleteAll()
+                                typewriter.typeString('how do I contact you?')
+                                  .pauseFor(1500)
+                                  .deleteAll()
+                                  .callFunction(() => {
+                                    console.log('All strings were deleted');
+                                  })
+                                typewriter.typeString('Ask Me Anything, or simply say Hi!')
+                                  .start();
+                              }}
+                            />
+                        </div>
                     </div>
                 </div>
+                <div className="ui items" style={messageBox}>
                 {
-                    this.state.rows.map((rows, index) => {
+                    this.state.type.map((rows, index) => {
                         let row = 'row' + index
                         return(
-                            <div className="item">
+                            <div className="item" style={rowItem}>
                                 <div style={terminalLeft}>
                                     <i className="big angle right icon"></i>
                                 </div>
                                 <div style={terminalMiddle}>
                                     <form onSubmit={this.handleSubmit} method="post">
-                                        <input id={'row' + index} type="text" onChange={this.updateType} autofocus="autofocus" onfocus="this.select()"/>
+                                        <input id={'row' + index} type="text" onChange={this.updateType} autoFocus onFocus={this.updateType} disabled={(this.state.activeID == this.id) ? "disabled" : ""} style={inputBox} maxlength="80" required="required"></input>
                                             <ReactTypingEffect
                                                 style={typewriterStyle}
                                                 staticText={this.state.type[row]}
                                                 speed={250}
                                                 typingDelay={250}
-                                                cursor="_"
+                                                cursor={(this.state.activeID == row) ? '_' : ' '}
                                             />
                                     </form>
                                 </div>
@@ -126,10 +135,21 @@ class SearchBar extends Component {
                         )
                     })
                 }
+                </div>
             </div>
         )
     }
 };
+
+const messageBox = {
+    width: '500px',
+    height: '150px',
+    overflow: 'hidden'
+}
+
+const rowItem = {
+    width: '100%'
+}
 
 const terminal = {
     transform: 'translateX(-10px)',
@@ -143,10 +163,18 @@ const typewriterStyle = {
 }
 
 const inputBox = {
-    width: '20px',
-    fontFamily: 'monospace',
-    fontSize: '1.5em',
-    whiteSpace: 'no-wrap'
+    position: 'absolute',
+    caretColor: 'transparent',
+    backgroundColor: 'transparent',
+    color: 'transparent',
+    fontColor: 'transparent',
+    border: '0px',
+    outline: 'none',
+    transform: 'translateY(-5px)',
+    width: '350px',
+    height: '30px',
+    whiteSpace: 'no-wrap',
+    zIndex: '99'
 }
 
 const terminalRow = {

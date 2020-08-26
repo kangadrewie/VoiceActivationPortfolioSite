@@ -10,11 +10,27 @@
 
 .hide {
     visibility: hidden;
+    position: absolute;
+    top: -1000px;
 }
 
 .terminal {
     margin-top: 40px !important;
     padding-top: 40px !important;
+}
+
+.terminal ::selection {
+  color: transparent;
+  background: rgba(0, 0, 0, 0); /* WebKit/Blink Browsers */
+}
+.terminal ::-moz-selection {
+  color: transparent;
+  background: rgba(0, 0, 0, 0); /* WebKit/Blink Browsers */
+}
+
+::selection {
+    color: white;
+    background: orange;
 }
 
 .searchBar {
