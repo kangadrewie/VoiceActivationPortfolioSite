@@ -19,7 +19,9 @@ class SearchBar extends Component {
             intent: 'null',
             firstName: 'andrew',
             searchWidth: '20px',
-            type: ''
+            type: {
+                row0: ''
+            }
         }
     }
 
@@ -60,8 +62,10 @@ class SearchBar extends Component {
     } 
 
     updateType = (event) => {
+        let row = event.currentTarget.id
+        this.setState({ type: { ...this.state.type, [event.currentTarget.id]: event.target.value} });
+        console.log(this.state.type)
         console.log(event.target.value)
-        this.setState({type: event.target.value}); 
     }
 
     render() {
@@ -99,7 +103,8 @@ class SearchBar extends Component {
                     </div>
                 </div>
                 {
-                    this.state.rows.map((row, index) => {
+                    this.state.rows.map((rows, index) => {
+                        let row = 'row' + index
                         return(
                             <div className="item">
                                 <div style={terminalLeft}>
@@ -107,10 +112,10 @@ class SearchBar extends Component {
                                 </div>
                                 <div style={terminalMiddle}>
                                     <form onSubmit={this.handleSubmit} method="post">
-                                        <input type="text" onChange={this.updateType} autofocus="autofocus" onfocus="this.select()"/>
+                                        <input id={'row' + index} type="text" onChange={this.updateType} autofocus="autofocus" onfocus="this.select()"/>
                                             <ReactTypingEffect
                                                 style={typewriterStyle}
-                                                staticText={this.state.type}
+                                                staticText={this.state.type[row]}
                                                 speed={250}
                                                 typingDelay={250}
                                                 cursor="_"
