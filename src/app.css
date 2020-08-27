@@ -15,8 +15,13 @@
 }
 
 .terminal {
+    transform: translateX(-10px);
+    max-width: 500px;
     margin-top: 40px !important;
     padding-top: 40px !important;
+}
+
+.overflown {
 }
 
 .inputBox::selection {

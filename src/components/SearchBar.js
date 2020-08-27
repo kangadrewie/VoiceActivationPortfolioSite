@@ -46,16 +46,12 @@ class SearchBar extends Component {
                 return response.json()
             })
             .then((data) => {
-                return data.intents[0]
-            })
-            .then((intent) => {
                 try {
-                    this.props.intent(intent);
+                    this.props.intent(data);
                 } catch(err) {
                     this.props.intent({name: 'unknown'})
                 }
-            });
-            
+            })
     }
 
     clear = (event) => {
@@ -88,7 +84,7 @@ class SearchBar extends Component {
 
     render() {
         return(
-            <div className="terminal" style={terminal} intent={this.state.intent} ref={this.terminal}>
+            <div className="terminal" intent={this.state.intent} ref={this.terminal}>
                 <div className={this.state.terminalHeading ? "ui items" : "ui items hide"}>
                     <div className="item">
                         <div style={terminalLeft}>
@@ -122,7 +118,7 @@ class SearchBar extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="ui items messageBox" style={messageBox} id="messageBox">
+                <div className={(Object.keys(this.state.type).length > 4) ? "ui items messageBox overflown" : "ui items messageBox"} style={messageBox} id="messageBox">
                 { 
                     Object.keys(this.state.type).map((rows, index) => {
                         let row = 'row' + index
@@ -164,11 +160,6 @@ const messageBox = {
 
 const rowItem = {
     width: '100%'
-}
-
-const terminal = {
-    transform: 'translateX(-10px)',
-    maxWidth: '500px',
 }
 
 const typewriterStyle = {

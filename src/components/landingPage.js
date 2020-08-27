@@ -16,6 +16,8 @@ class LandingDialog extends Component {
             greetingColl: ['Hi there. 👋', 'Hey! 👋', 'How can I help? 😁', 'Hello. 👌', 'Welcome. 🤙', 'What can I do for you? 😀', 'Nice to meet you.🤝'],
             emotionalGreetingColl: ['I\'m Great. Thanks 😀', 'Very Well, You? 🙌', 'All Good. You? 😊'],
             greetingResponseColl : ['Nm. You? 🤔', 'Just Coding. You? 👨‍💻', 'Chillin. You? 🤔'],
+            byeColl: ['Bye. 👋', 'Cya. 🤙', 'Goodbye! 😀'],
+            aboutMeColl: ['At this size font? Impossible.'],
             apologyColl: ['Forgiven. 🤛', 'No Problem 🤝', 'No Need to Apologise. 🤚'],
             gratitudeColl: ['You\'re Welcome. ☺️', 'No Problem. 😀', 'No. Thank you. 👏', 'Any Time. 🤙'],
             ageColl: ['I\'m 25. 🎈'],
@@ -28,31 +30,38 @@ class LandingDialog extends Component {
             lastNameColl: ['Gorman.🙅‍♂️'],
             locationColl: ['Dublin. 🙅🏻‍♂️'],
             contactColl: ["👈 LinkedIn & Email."],
-            unknownColl: ['Sorry. Say again? 😕', 'I Don\'t Understand 😟'],
+            unknownColl: ['Sorry. Say again? 😕', 'I Don\'t Understand 😟', 'Sorry, I\'m Still Learning. 😢'],
             favouriteLanguageColl: ['Python. 🐍'],
+            worstLanguageColl: ['TBC. 😅'],
             favouriteFrameworkColl: ['React. 🚀'],
             favouriteMovieColl: ['Green Book. Watch it.'],
             favouriteMusicColl: ['All Music is 🔥'],
             favouriteBookColl: ['1984. 🕵'],
+            studyingColl: ['MSc Comp Sci in TU Dublin. 👨‍💻'],
+            mainRender: 'main',
             heading: "I\'m Andrew",
             caption: "And I’m a passionate and aspiring Software Engineer based in Dublin. I am open to explore any exciting opportunities or challenges so don’t be shy!"
         }
     }
 
-    email = (intent) => {
-        if (intent.name == 'email') {
-            this.setState({heading: 'Click Here 👈'})
-            return(
-                <a href="tomail:andrewgorman101@gmail.com">
-                    <h1 style={header} className="bgCaptionHeading">{this.state.heading}</h1>
-                </a>
-            )
-        } else {
-            return null;
-        }
+    mathsExpression = (value) => {
+        let payload = encodeURIComponent(value)
+        let prefix = ['Ok...', 'Easy. ']
+        let suffix = ['.😏', '.😚', '.🧠']
+        return fetch(`http://api.mathjs.org/v4/?expr=${payload}`) 
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                console.log(data)
+                let num1 = Math.floor(Math.random() * Math.floor(prefix.length))
+                let num2 = Math.floor(Math.random() * Math.floor(suffix.length))
+                let ans = prefix[num1] + data + suffix[num2]
+                this.setState({heading: ans, caption: ''})
+            })
     }
     
-    select = (intent) => {
+    genericSelection = (intent) => {
         let collection = intent + "Coll"
         let size = this.state[collection].length 
         console.log(size)
@@ -62,19 +71,28 @@ class LandingDialog extends Component {
         this.setState({heading: selection, caption: ''})
     }
 
-    handleIntent = (intent) => {
-
-        this.select(intent.name)
+    handleIntent = (data) => {
+        console.log(data)
+        try {
+            if (data.intents[0].name == 'maths') {
+                this.mathsExpression(data.entities['wit$math_expression:math_expression'][0]['value'])
+            } else if (data.intents[0].name == 'aboutMe') {
+                this.genericSelection(data.intents[0].name)
+                this.setState({mainRender: 'aboutMe'})
+            } else {
+                this.genericSelection(data.intents[0].name)
+                this.setState({mainRender: 'main'})
+            }
+        } 
+        catch(err) {
+            this.genericSelection('unknown')
+        }
     }
 
-    render() {
-        return(
-            <div id="homepage" style={container}>
-                <FadeIn transitionDuration="1400">
-                    <div style={bg} className="bgMobile"></div>
-                </FadeIn>
-                <div style={dialog} className="bgCaptionContainer">
-                    <div>
+    mainRender = () => {
+        if (this.state.mainRender == 'main') {
+            return(
+                <React.Fragment>
                     <FadeIn delay="1000" transitionDuration="1000">
                         <AnimateOnChange>
                             <h1 style={header} className="bgCaptionHeading">{this.state.heading}</h1>
@@ -88,7 +106,38 @@ class LandingDialog extends Component {
                     <FadeIn delay="2000" transitionDuration="1400">
                         <SearchBar intent={this.handleIntent}></SearchBar>
                     </FadeIn>
+                </React.Fragment>
+            )
+        } else if (this.state.mainRender == 'aboutMe') {
+            return(
+                <React.Fragment>
+                    <FadeIn delay="1000" transitionDuration="1000">
+                        <AnimateOnChange>
+                            <h1 style={header} className="bgCaptionHeading">{this.state.heading}</h1>
+                        </AnimateOnChange>
+                    </FadeIn>
 
+                    <FadeIn delay="1500" transitionDuration="1200">
+                        <p style={caption} className="bgCaptionPara">But click <a href="#aboutme">HERE</a> to find more about me. ☺️</p>
+                    </FadeIn>
+
+                    <FadeIn delay="2000" transitionDuration="1400">
+                        <SearchBar intent={this.handleIntent}></SearchBar>
+                    </FadeIn>
+                </React.Fragment>
+            )
+        }
+    }
+
+    render() {
+        return(
+            <div id="homepage" style={container}>
+                <FadeIn transitionDuration="1400">
+                    <div style={bg} className="bgMobile"></div>
+                </FadeIn>
+                <div style={dialog} className="bgCaptionContainer">
+                    <div>
+                        {this.mainRender()}
                     </div>
                 </div> 
                 <ScrollComponenet></ScrollComponenet>
@@ -150,7 +199,8 @@ const caption = {
     height: '50px',
     fontSize: '1.2em',
     fontFamily: 'Source Sans Pro, sans-serif',
-    fontWeight: '200'
+    fontWeight: '200',
+    minWidth: '500px'
 }
 
 export default LandingDialog;
