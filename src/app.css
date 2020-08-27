@@ -33,6 +33,11 @@
     background: orange;
 }
 
+.messageBox::-webkit-scrollbar {
+    width: 0px !important;
+    background: transparent !important;
+}
+
 .searchBar {
 	width: 100%;
 	padding: 0px;

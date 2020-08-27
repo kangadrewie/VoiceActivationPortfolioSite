@@ -22,13 +22,15 @@ class SearchBar extends Component {
             searchWidth: '20px',
             activeID: 'row0',
             terminalHeading: true,
-            type: {
-                row0: ''
-            }
+            rowOffset: 0,
+            type: {}
         }
     }
 
-    componentDidMount() {
+    componentDidUpdate() {
+    // I was not using an li but may work to keep your div scrolled to the bottom as li's are getting pushed to the div
+        const objDiv = document.getElementById('messageBox');
+        objDiv.scrollTop = objDiv.scrollHeight;
     }
 
     postAPI = (payload) => {
@@ -56,22 +58,24 @@ class SearchBar extends Component {
             
     }
 
-    handleSubmit= (e) => {
-        e.preventDefault() 
-        let payload = encodeURIComponent(e.target[0].value);
-        this.postAPI(payload)
-        this.setState({ rows: [...this.state.rows, '0'] })
+    clear = (event) => {
+        event.target.value = "";
+    }
 
-        if (this.state.rows.length > 3) {
-            this.setState({terminalHeading: false})
-        }
+    handleSubmit= (event) => {
+        event.preventDefault() 
+        let payload = encodeURIComponent(event.target[0].value);
+        let counter = 0
+        this.postAPI(payload)
+        let row = 'row' + (parseInt(event.target.id) + 1).toString()
+        this.setState({type: { ...this.state.type, [row]: ''}})
+        this.setState({activeID: row})
+        console.log(this.state.activeID)
     } 
 
     updateType = (event) => {
         let row = event.currentTarget.id
         this.setState({ type: { ...this.state.type, [event.currentTarget.id]: event.target.value} });
-        this.setState({activeID: event.currentTarget.id})
-        console.log(this.state.activeID)
     }
 
     render() {
@@ -90,7 +94,7 @@ class SearchBar extends Component {
                               onInit={(typewriter) => {
                                 typewriter.typeString('Ask Me Anything, or simply say Hi!')
                                   .callFunction(() => {
-                                    this.setState({ rows: [...this.state.rows, '0'] })
+                                      this.setState({type: { ...this.state.type, row0: ''}})
                                   })
                                   .pauseFor(2500)
                                   .deleteAll()
@@ -110,18 +114,19 @@ class SearchBar extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="ui items" style={messageBox}>
-                {
-                    this.state.type.map((rows, index) => {
-                        let row = 'row' + index
+                <div className="ui items messageBox" style={messageBox} id="messageBox">
+                { 
+                    Object.keys(this.state.type).map((rows, index) => {
+                        let row = 'row' + (index + this.state.rowOffset)
+                        let lastItem = Object.keys(this.state.type)[Object.keys(this.state.type).length - 1]
                         return(
                             <div className="item" style={rowItem}>
                                 <div style={terminalLeft}>
                                     <i className="big angle right icon"></i>
                                 </div>
                                 <div style={terminalMiddle}>
-                                    <form onSubmit={this.handleSubmit} method="post">
-                                        <input id={'row' + index} type="text" onChange={this.updateType} autoFocus onFocus={this.updateType} disabled={(this.state.activeID == this.id) ? "disabled" : ""} style={inputBox} maxlength="80" required="required"></input>
+                                    <form id={index} onSubmit={this.handleSubmit} method="post">
+                                        <input id={'row' + (index + this.state.rowOffset)} type="text" onChange={this.updateType} autoFocus onFocus={this.updateType} style={inputBox} maxlength="80" required="required" onClick={this.clear} disabled={(this.state.activeID == lastItem) ? "" : "disabled"}></input>
                                             <ReactTypingEffect
                                                 style={typewriterStyle}
                                                 staticText={this.state.type[row]}
@@ -144,7 +149,7 @@ class SearchBar extends Component {
 const messageBox = {
     width: '500px',
     height: '150px',
-    overflow: 'hidden'
+    overflowY: 'auto'
 }
 
 const rowItem = {
