@@ -21,8 +21,8 @@ class SearchBar extends Component {
             firstName: 'andrew',
             searchWidth: '20px',
             activeID: 'row0',
+            lastItem: '',
             terminalHeading: true,
-            rowOffset: 0,
             type: {}
         }
     }
@@ -70,12 +70,20 @@ class SearchBar extends Component {
         let row = 'row' + (parseInt(event.target.id) + 1).toString()
         this.setState({type: { ...this.state.type, [row]: ''}})
         this.setState({activeID: row})
-        console.log(this.state.activeID)
+        let last = Object.keys(this.state.type)[Object.keys(this.state.type).length - 1]
+        this.setState({lastItem: last})
     } 
 
     updateType = (event) => {
         let row = event.currentTarget.id
         this.setState({ type: { ...this.state.type, [event.currentTarget.id]: event.target.value} });
+        let last = Object.keys(this.state.type)[Object.keys(this.state.type).length - 1]
+        this.setState({lastItem: last})
+        this.setState({activeID: row})
+    }
+
+    checkMessage = (event) => {
+        console.log(event, 'EVENT DISABLED')
     }
 
     render() {
@@ -117,8 +125,9 @@ class SearchBar extends Component {
                 <div className="ui items messageBox" style={messageBox} id="messageBox">
                 { 
                     Object.keys(this.state.type).map((rows, index) => {
-                        let row = 'row' + (index + this.state.rowOffset)
+                        let row = 'row' + index
                         let lastItem = Object.keys(this.state.type)[Object.keys(this.state.type).length - 1]
+                        console.log(this.state.activeID, 'ACTIVE', lastItem, 'LAST ITEM')
                         return(
                             <div className="item" style={rowItem}>
                                 <div style={terminalLeft}>
@@ -126,13 +135,13 @@ class SearchBar extends Component {
                                 </div>
                                 <div style={terminalMiddle}>
                                     <form id={index} onSubmit={this.handleSubmit} method="post">
-                                        <input id={'row' + (index + this.state.rowOffset)} type="text" onChange={this.updateType} autoFocus onFocus={this.updateType} style={inputBox} maxlength="80" required="required" onClick={this.clear} disabled={(this.state.activeID == lastItem) ? "" : "disabled"}></input>
+                                        <input className="inputBox" id={'row' + index} type="text" onChange={this.updateType} autoFocus onFocus={this.updateType} style={inputBox} maxLength="60" required="required" readOnly={(this.state.activeID == this.state.lastItem) ? false : true}></input>
                                             <ReactTypingEffect
                                                 style={typewriterStyle}
                                                 staticText={this.state.type[row]}
                                                 speed={250}
                                                 typingDelay={250}
-                                                cursor={(this.state.activeID == row) ? '_' : ' '}
+                                                cursor={(row == lastItem) ? '_' : ' '}
                                             />
                                     </form>
                                 </div>
@@ -148,8 +157,9 @@ class SearchBar extends Component {
 
 const messageBox = {
     width: '500px',
-    height: '150px',
-    overflowY: 'auto'
+    height: '170px',
+    overflowY: 'auto',
+    overflowX: 'hidden'
 }
 
 const rowItem = {
@@ -169,13 +179,16 @@ const typewriterStyle = {
 
 const inputBox = {
     position: 'absolute',
-    caretColor: 'transparent',
+    left: '0',
+    bottom: '0',
     backgroundColor: 'transparent',
     color: 'transparent',
-    fontColor: 'transparent',
+    caretColor: 'transparent',
     border: '0px',
     outline: 'none',
     transform: 'translateY(-5px)',
+    padding: '0px',
+    margin: '0px',
     width: '350px',
     height: '30px',
     whiteSpace: 'no-wrap',
@@ -196,6 +209,7 @@ const terminalLeft = {
 }
 
 const terminalMiddle = {
+    position: 'relative',
     float: 'left',
     paddingTop: '3px',
     width: 'auto'

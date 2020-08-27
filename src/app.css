@@ -19,11 +19,11 @@
     padding-top: 40px !important;
 }
 
-.terminal ::selection {
+.inputBox::selection {
   color: transparent;
   background: rgba(0, 0, 0, 0); /* WebKit/Blink Browsers */
 }
-.terminal ::-moz-selection {
+.inputBox::-moz-selection {
   color: transparent;
   background: rgba(0, 0, 0, 0); /* WebKit/Blink Browsers */
 }
@@ -36,6 +36,14 @@
 .messageBox::-webkit-scrollbar {
     width: 0px !important;
     background: transparent !important;
+}
+
+.messageBox::-webkit-scrollbar-track {
+    background: none;
+}
+
+.messageBox::-webkit-scrollbar-track {
+
 }
 
 .searchBar {
