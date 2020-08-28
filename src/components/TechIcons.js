@@ -26,11 +26,31 @@ class TechIcons extends Component {
 
     handleClick = (e) => {
         if (e.currentTarget.getAttribute('lang') === 'python') {
-            this.setState({tech: {name: 'Python 3', desc: "I build both small and large scale applications in JavaScript daily for desktop, tablet, mobile or server. Combined with an in-depth understanding of UX and design means I can take applications from start to finish. I can also provide consulting and advice on solutions."}})
+            this.setState({tech: {name: 'Python3,', exp: '1 Year,', frameworks: '\'Flask\''}})
             this.setState({itemSelected: true})
         }
         if (e.currentTarget.getAttribute('lang') === 'js') {
-            this.setState({tech: {name: 'JavaScript', desc: "I build both small and large scale applications in JavaScript daily for desktop, tablet, mobile or server. Combined with an in-depth understanding of UX and design means I can take applications from start to finish. I can also provide consulting and advice on solutions."}})
+            this.setState({tech: {name: 'Javascript,', exp: '1 Year,', frameworks: '\'jQuery\',  \'ReactJS\''}})
+            this.setState({itemSelected: true})
+        }
+        if (e.currentTarget.getAttribute('lang') === 'html') {
+            this.setState({tech: {name: 'HTML5,', exp: '1 Year,', frameworks: '\'Bootstrap\',  \'SemanticUI\',  \'CSS Grid\''}})
+            this.setState({itemSelected: true})
+        }
+        if (e.currentTarget.getAttribute('lang') === 'react') {
+            this.setState({tech: {name: 'ReactJS,', exp: '3 Months,', frameworks: '\'Spring\',  \'react-animations\''}})
+            this.setState({itemSelected: true})
+        }
+        if (e.currentTarget.getAttribute('lang') === 'css') {
+            this.setState({tech: {name: 'CSS3,', exp: '1 Year,', frameworks: '\'Bootstrap\',  \'SemanticUI\''}})
+            this.setState({itemSelected: true})
+        }
+        if (e.currentTarget.getAttribute('lang') === 'aws') {
+            this.setState({tech: {name: 'AWS,', exp: '1 Year,', frameworks: '\'LightSail\',  \'S3\',  \'EC2\''}})
+            this.setState({itemSelected: true})
+        }
+        if (e.currentTarget.getAttribute('lang') === 'git') {
+            this.setState({tech: {name: 'Git,', exp: '1 Year,', frameworks: 'null'}})
             this.setState({itemSelected: true})
         }
     }
@@ -53,13 +73,16 @@ class TechIcons extends Component {
 
                                 <i id="codeIcons" lang="js" className={(this.state.matches) ? "big js icon" : "large js icon"} alt="Javascript" onClick={this.handleClick}>,</i>
 
-                                <i id="codeIcons" lang="html" className={(this.state.matches) ? "big html5 icon" : "large html5 icon"} alt="HTML5">,</i>
+                                <i id="codeIcons" lang="html" className={(this.state.matches) ? "big html5 icon" : "large html5 icon"} alt="HTML5" onClick={this.handleClick}>,</i>
                                 
-                                <i id="codeIcons" className={(this.state.matches) ? "big react icon" : "large react icon"}>,</i>
-                                <i id="codeIcons" className={(this.state.matches) ? "big flask icon" : "large flask icon"} alt="Flask">,</i>
-                                <i id="codeIcons" className={(this.state.matches) ? "big css3 icon" : "large css3 icon"} alt="CSS3">,</i>
-                                <i id="codeIcons" className={(this.state.matches) ? "big aws icon" : "large aws icon"} alt="AWS">,</i>
-                                <i id="codeIcons" className={(this.state.matches) ? "big git icon" : "large git icon"} alt="GIT"></i>
+                                <i id="codeIcons" lang="react" className={(this.state.matches) ? "big react icon" : "large react icon"} onClick={this.handleClick}>,</i>
+
+                                <i id="codeIcons" lang="css" className={(this.state.matches) ? "big css3 icon" : "large css3 icon"} alt="CSS3" onClick={this.handleClick}>,</i>
+
+                                <i id="codeIcons" lang="aws" className={(this.state.matches) ? "big aws icon" : "large aws icon"} alt="AWS" onClick={this.handleClick}>,</i>
+
+                                <i id="codeIcons" lang="git" className={(this.state.matches) ? "big git icon" : "large git icon"} alt="GIT" onClick={this.handleClick}></i>
+
                                 <h3 style={braces} className={(this.state.itemSelected) ? "hide" : ""}>{'}'}</h3>
                                 <i style={closeJSON} className={(this.state.itemSelected) ? "large caret up icon" : ""} onClick={this.closeBraces}></i>
                             </FadeIn>
@@ -107,7 +130,7 @@ const ClosingBraces = {
 
 const font = {
     fontFamily: 'monospace',
-    fontSize: '1.2em',
+    fontSize: '1.1em',
 }
 
 const p = {
