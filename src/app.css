@@ -8,6 +8,20 @@
   }
 }
 
+.marginLeft {
+    margin-left: 40px;
+}
+
+.highlight {
+    font-color: orange;
+    font-weight: 600;
+    color: orange !important;
+}
+
+.inline {
+    display: inline-block;
+}
+
 .hide {
     visibility: hidden;
     position: absolute;
@@ -21,13 +35,11 @@
     padding-top: 40px !important;
 }
 
-.overflown {
-}
-
 .inputBox::selection {
   color: transparent;
   background: rgba(0, 0, 0, 0); /* WebKit/Blink Browsers */
 }
+
 .inputBox::-moz-selection {
   color: transparent;
   background: rgba(0, 0, 0, 0); /* WebKit/Blink Browsers */

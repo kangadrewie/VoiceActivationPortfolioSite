@@ -6,6 +6,8 @@ import ScrollDown from './ScrollDownLanding.js';
 import FadeIn from 'react-fade-in';
 import Background from '../images/landingportrait.png';
 import { AnimateOnChange } from 'react-animation';
+import Bounce from 'react-reveal/Bounce';
+
 
 class LandingDialog extends Component {
     constructor(props) {
@@ -17,7 +19,7 @@ class LandingDialog extends Component {
             emotionalGreetingColl: ['I\'m Great. Thanks 😀', 'Very Well, You? 🙌', 'All Good. You? 😊'],
             greetingResponseColl : ['Nm. You? 🤔', 'Just Coding. You? 👨‍💻', 'Chillin. You? 🤔'],
             byeColl: ['Bye. 👋', 'Cya. 🤙', 'Goodbye! 😀'],
-            aboutMeColl: ['At this size font? Impossible.'],
+            aboutMeColl: ['At this size font? Impossible. 😋'],
             apologyColl: ['Forgiven. 🤛', 'No Problem 🤝', 'No Need to Apologise. 🤚'],
             gratitudeColl: ['You\'re Welcome. ☺️', 'No Problem. 😀', 'No. Thank you. 👏', 'Any Time. 🤙'],
             ageColl: ['I\'m 25. 🎈'],
@@ -77,8 +79,9 @@ class LandingDialog extends Component {
             if (data.intents[0].name == 'maths') {
                 this.mathsExpression(data.entities['wit$math_expression:math_expression'][0]['value'])
             } else if (data.intents[0].name == 'aboutMe') {
-                this.genericSelection(data.intents[0].name)
                 this.setState({mainRender: 'aboutMe'})
+            } else if (data.intents[0].name == 'email') {
+                this.setState({mainRender: 'email'})
             } else {
                 this.genericSelection(data.intents[0].name)
                 this.setState({mainRender: 'main'})
@@ -102,10 +105,6 @@ class LandingDialog extends Component {
                     <FadeIn delay="1500" transitionDuration="1200">
                         <p style={caption} className="bgCaptionPara">{this.state.caption}</p>
                     </FadeIn>
-
-                    <FadeIn delay="2000" transitionDuration="1400">
-                        <SearchBar intent={this.handleIntent}></SearchBar>
-                    </FadeIn>
                 </React.Fragment>
             )
         } else if (this.state.mainRender == 'aboutMe') {
@@ -113,16 +112,39 @@ class LandingDialog extends Component {
                 <React.Fragment>
                     <FadeIn delay="1000" transitionDuration="1000">
                         <AnimateOnChange>
-                            <h1 style={header} className="bgCaptionHeading">{this.state.heading}</h1>
+                            <h1 style={header} className="bgCaptionHeading">
+                                At this font size?
+                            </h1>
+                            <h1 style={headerSub} className="bgCaptionHeading">
+                                Impossible. 😋
+                            </h1>
                         </AnimateOnChange>
                     </FadeIn>
 
                     <FadeIn delay="1500" transitionDuration="1200">
-                        <p style={caption} className="bgCaptionPara">But click <a href="#aboutme">HERE</a> to find more about me. ☺️</p>
+                        <AnimateOnChange>
+                            <p style={captionAboutMe} className="bgCaptionPara">But click <a href="#aboutme" className="highlight">HERE</a> to learn more about me! </p>
+                        </AnimateOnChange>
+                    </FadeIn>
+                </React.Fragment>
+            )
+        } else if (this.state.mainRender == 'email') {
+            return(
+                <React.Fragment>
+                    <FadeIn delay="1000" transitionDuration="1000">
+                        <AnimateOnChange>
+                            <h1 style={header} className="bgCaptionHeading inline">Sure... 👉  
+                                    <a href="mailto:andrewgorman101@gmail.com">
+                                        <Bounce top>
+                                            <div className="inline" style={{paddingLeft: '20px'}}> ✉️</div>
+                                        </Bounce> 
+                                    </a>
+                            </h1>
+                        </AnimateOnChange>
                     </FadeIn>
 
-                    <FadeIn delay="2000" transitionDuration="1400">
-                        <SearchBar intent={this.handleIntent}></SearchBar>
+                    <FadeIn delay="1500" transitionDuration="1200">
+                        <p style={captionAboutMe} className="bgCaptionPara"></p>
                     </FadeIn>
                 </React.Fragment>
             )
@@ -138,6 +160,9 @@ class LandingDialog extends Component {
                 <div style={dialog} className="bgCaptionContainer">
                     <div>
                         {this.mainRender()}
+                        <FadeIn delay="2000" transitionDuration="1400">
+                            <SearchBar intent={this.handleIntent}></SearchBar>
+                        </FadeIn>
                     </div>
                 </div> 
                 <ScrollComponenet></ScrollComponenet>
@@ -191,7 +216,18 @@ const header = {
     fontFamily: 'Source Sans Pro, sans-serif',
     fontWeight: '700',
     fontColor: 'grey',
-    marginBottom: '0'
+    marginBottom: '0',
+    minWidth: '500px'
+}
+
+const headerSub = {
+    fontSize: '6em',
+    fontFamily: 'Source Sans Pro, sans-serif',
+    fontWeight: '700',
+    fontColor: 'grey',
+    lineHeight: '0.8em',
+    marginBottom: '30px',
+    minWidth: '500px'
 }
 
 const caption = {
@@ -200,6 +236,16 @@ const caption = {
     fontSize: '1.2em',
     fontFamily: 'Source Sans Pro, sans-serif',
     fontWeight: '200',
+    minWidth: '500px'
+}
+
+const captionAboutMe = {
+    width: '50%',
+    height: '50px',
+    color: 'rgba(0, 0, 0, 0.87)',
+    fontFamily: 'Source Sans Pro, sans-serif',
+    fontSize: '1.5em',
+    paddingTop: '10px',
     minWidth: '500px'
 }
 
